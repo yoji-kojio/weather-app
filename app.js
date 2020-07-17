@@ -1,14 +1,17 @@
 const axios = require('axios')
 require('dotenv').config()
 
+const log = console.log
 const hostUrl = 'http://api.weatherstack.com/current'
 const params = {
   access_key: process.env.WEATHER_API_KEY,
-  query: 'Sao Jose dos Campos'
+  query: 'Pocos de Caldas'
 }
 
 axios.get(hostUrl, { params }).then(({ data }) => {
-  console.log(data.current)
+  const { temperature, feelslike, weather_descriptions } = data.current
+
+  log(weather_descriptions[0] + '. Its is currently ' + temperature + ' degress out. It feels like ' + feelslike + ' degress out.')
 }).catch((error) => {
-  console.log(error)
+  log(error)
 })
