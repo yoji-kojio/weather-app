@@ -13,19 +13,17 @@ const geocode = (address, callback) => {
     const { features } = data
 
     if (features && features.length === 0) {
-      callback('Unable to find location. try another search')
-      return
+      return console.log('Unable to find location. try another search')
     }
 
-    const longitude = features[0].center[0]
-    const latitude = features[0].center[1]
-
-    callback(`${latitude}, ${longitude}`)
+    callback({
+      longitude: features[0].center[0],
+      latitude: features[0].center[1],
+      placeName: features[0].place_name,
+    })
   }).catch((_error) => {
-    callback('Unable to connect on Geocoding API')
+    return console.log('Unable to connect on Geocoding API')
   })
 }
 
-module.exports = {
-  geocode
-}
+module.exports = geocode
